@@ -1,0 +1,91 @@
+﻿<Window x:Class="KinectMonitor.VideoPlayer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="VideoPlayer" Height="295" Width="444" WindowStyle="None" AllowsTransparency="True" Background="{x:Null}" Loaded="Window_Loaded" >
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="Rectangle" Stroke="#FFFFFFFF" StrokeMiterLimit="1.000000" StrokeThickness="0.500000" RadiusX="5" RadiusY="5" Fill="#FF777777">
+                            </Rectangle>
+                            <ContentPresenter x:Name="ContentPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" TargetName="Rectangle">
+                                    <Setter.Value>
+                                        <SolidColorBrush Color="white"></SolidColorBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Foreground" Value="Black"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="CharStyle" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Rectangle x:Name="Rectangle" Stroke="#FFFFFFFF" StrokeMiterLimit="1.000000" StrokeThickness="0.500000" RadiusX="5" RadiusY="5" Fill="#FF777777">
+                            </Rectangle>
+                            <ContentPresenter x:Name="ContentPresenter" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Fill" TargetName="Rectangle" Value="LightGray"></Setter>
+                                <Setter Property="Foreground" Value="Brown"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid Name="BaseGrid"  MouseLeftButtonDown="DragWindow">
+            <Border Name="BorderSkin" CornerRadius="80,10,80,80"  Margin="0,0,50,0" >
+                <Border.Background>
+                    <ImageBrush x:Name="BackgroundImage" />
+                </Border.Background>
+            </Border>
+
+            <Button Style="{StaticResource ButtonStyle}" Width="19" Content="口" Height="18" HorizontalAlignment="Right" Margin="0,2,77,0" Name="max" VerticalAlignment="Top" BorderBrush="#FF777777" Click="max_Click"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Width="19"  Content="X" Height="18" HorizontalAlignment="Right" Margin="0,2,55,0" Name="shutDown" VerticalAlignment="Top" BorderBrush="#FF777777" Click="shutDown_Click"></Button>
+            <Button Style="{StaticResource ButtonStyle}" Width="19" Content="—" Height="18" HorizontalAlignment="Right" Margin="0,2,99,0" Name="min" VerticalAlignment="Top" BorderBrush="#FF777777" Click="min_Click"></Button>
+            <Button Style="{StaticResource CharStyle}" Width="30"  Content="皮肤" Height="20" HorizontalAlignment="Right" Margin="0,50,54,0" Name="skin" VerticalAlignment="Top" BorderBrush="#FF777777" Click="skin_Click"  ></Button>
+            <Button Style="{StaticResource CharStyle}" Width="30"  Content="置顶" Height="20" HorizontalAlignment="Right" Margin="0,25,54,0" Name="btover" VerticalAlignment="Top" BorderBrush="#FF777777" ></Button>
+            <Button Style="{StaticResource CharStyle}" Width="30"  Content="缩放" Height="20" HorizontalAlignment="Right" Margin="0,75,54,0" Name="btsize" VerticalAlignment="Top" BorderBrush="#FF777777" Click="btsize_Click" LostFocus="size_LoseFocus" ></Button>
+            <Button Style="{StaticResource CharStyle}" Width="30"  Content="选项" Height="20" HorizontalAlignment="Right" Margin="0,100,54,0" Name="btoption" VerticalAlignment="Top" BorderBrush="#FF777777" ></Button>
+            <Button Style="{StaticResource CharStyle}" Width="30"  Content="帮助" Height="20" HorizontalAlignment="Right" Margin="0,125,54,0" Name="bthelp" VerticalAlignment="Top" BorderBrush="#FF777777" ></Button>
+            <Button Height="20" HorizontalAlignment="Left" Margin="5,70,0,0" Name="btplay" VerticalAlignment="Top" Width="35" Click="btplay_Click">播放</Button>
+            <Button Height="20" HorizontalAlignment="Left" Margin="5,105,0,0" Name="btpause" VerticalAlignment="Top" Width="35" FontSize="11" Click="btpause_Click">暂停</Button>
+            <Button Height="20" HorizontalAlignment="Left" Margin="5,140,0,0" Name="btstop" VerticalAlignment="Top" Width="35" Click="btstop_Click">停止</Button>
+            <Button Height="20" HorizontalAlignment="Left" Margin="5,175,0,0" Name="btopen" VerticalAlignment="Top" Width="35" Click="btopen_Click">打开</Button>
+
+            <Slider Name="volumeSlider" HorizontalAlignment="Right" Margin="0,100,65,65"  Width="auto"  Orientation="Vertical" Interval="20" TickPlacement="TopLeft" Height="71"  VerticalAlignment="Bottom" Maximum="10" Minimum="0" ValueChanged="volumnSlider_ValueChanged" />
+            <Slider Name="videoSlider" Margin="60,0,110,15"   Height="16"   TickPlacement="None" VerticalAlignment="Bottom" ValueChanged="videoSlider_ValueChanged"/>
+            <TextBlock Name="showTimeBlock" Text="" Margin="0,0,110,0" Foreground="White" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
+            <TextBlock  Text="Magical播放器 v1.0.1" Margin="71,0,0,0" Foreground="White" Height="18" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="97" />
+            <Menu  Height="65" HorizontalAlignment="Right" Margin="0,80,00,0" Name="sizeMenu" VerticalAlignment="Top" Width="50" IsEnabled="True" Visibility="Hidden" >
+                <MenuItem Name="doubleSize" Header="2X倍"  />
+                <MenuItem Name="halfSize" Header="0.5X倍"/>
+                <MenuItem Name="fullScreen" Header="全屏" Click="fullScreen_Click" />
+            </Menu>
+
+        </Grid>
+        <Grid Name="MediaGrid" Background="Black" Margin="43,22,90,25" MouseLeftButtonDown="PauseByClick">
+            <MediaElement  Margin="0,0,0,0" Height="Auto" Name="myVideo" Width="Auto" MediaOpened="myVideo_MediaOpened" />
+
+
+        </Grid>
+
+    </Grid>
+</Window>

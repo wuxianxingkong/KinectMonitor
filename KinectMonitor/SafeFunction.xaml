@@ -1,0 +1,65 @@
+﻿<Window x:Class="KinectMonitor.SafeFunction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SafeFunction" Height="600" Width="800" Loaded="SafeFunctionLoaded" Unloaded="SafeFunctionUnloaded" Icon="Image/User.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Background="#FF00BCF2">
+            <MenuItem Header="文件">
+                <MenuItem Header="保存"/>
+                <MenuItem Header="打开"/>
+                <MenuItem Header="退出"/>
+            </MenuItem>
+            <MenuItem Header="编辑">
+                <MenuItem Header="开始捕获"/>
+                <MenuItem Header="停止捕获"/>
+                <MenuItem Header="高级"/>
+                <MenuItem Header="设置"/>
+            </MenuItem>
+            <MenuItem Header="查看">
+                <MenuItem Header="日志"/>
+                <MenuItem Header="视频" Name="VideoChecking" Click="VideoChecking_Click"/>
+            </MenuItem>
+            <MenuItem Header="帮助">
+                <MenuItem Header="查看帮助"/>
+                <MenuItem Header="关于本产品"/>
+            </MenuItem>
+        </Menu>
+        <ToolBar Grid.Row="1" Background="#FF00BCF2">
+            <Button>
+                <Image Source="Image/File.ico" Width="16"/>
+            </Button>
+            <Separator />
+            <Button ToolTip="开始录像" Name="VideoCaptureButton" Click="VideoCapture_Click">
+                <Image Source="Image/Record.ico" Width="16"/>
+            </Button>
+            <Button ToolTip="停止录像" Name="VideoCaptureStopButton" Click="VideoCaptureStop_Click" IsEnabled="False">
+                <Image Source="Image/Stop.ico" Width="16"/>
+            </Button>
+            <Separator />
+            <Button>
+                <Image Source="Image/SnapShot.png" Width="16"/>
+            </Button>
+            <Separator />
+            <Button ToolTip="自动录像" Name="AutoCapture" Click="AutoCapture_Click">
+                <Image Source="Image/Auto.ico" Width="16"/>
+            </Button>
+        </ToolBar>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="640"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+        <Canvas Grid.Column="0" >
+            <Image x:Name="ColorData" Canvas.Left="0" Canvas.Top="0"/>
+        </Canvas>
+            <Button x:Name='StartOrStop' Width="100"  Height="50"  BorderBrush="#FFF9F9F4" Click="StartOrStop_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF00BCF2">
+                开启功能
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
